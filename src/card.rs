@@ -53,9 +53,7 @@ pub struct CardLegalities {
     pub vintage: String,
     pub penny: String,
     pub commander: String,
-    pub c1v1: String,
     pub duel: String,
-    pub brawl: String,
 }
 
 #[derive(Clone)]

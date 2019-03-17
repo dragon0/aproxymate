@@ -64,10 +64,7 @@ struct CardLegalities {
     vintage: String,
     penny: String,
     commander: String,
-    #[serde(rename="1v1")]
-    c1v1: String,
     duel: String,
-    brawl: String
 }
 
 #[derive(Deserialize, Debug, Clone)]
@@ -247,9 +244,7 @@ fn dto_to_legalities(leg: CardLegalities) -> card::CardLegalities {
         vintage: leg.vintage,
         penny: leg.penny,
         commander: leg.commander,
-        c1v1: leg.c1v1,
         duel: leg.duel,
-        brawl: leg.brawl,
     }
 }
 

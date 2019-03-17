@@ -127,9 +127,7 @@ fn print() {
                 vintage: String::new(),
                 penny: String::new(),
                 commander: String::new(),
-                c1v1: String::new(),
                 duel: String::new(),
-                brawl: String::new(),
             },
         },
         card::Card {
@@ -189,9 +187,7 @@ fn print() {
                 vintage: String::new(),
                 penny: String::new(),
                 commander: String::new(),
-                c1v1: String::new(),
                 duel: String::new(),
-                brawl: String::new(),
             },
         },
         card::Card {
@@ -251,9 +247,7 @@ fn print() {
                 vintage: String::new(),
                 penny: String::new(),
                 commander: String::new(),
-                c1v1: String::new(),
                 duel: String::new(),
-                brawl: String::new(),
             },
         },
         card::Card {
@@ -313,9 +307,7 @@ fn print() {
                 vintage: String::new(),
                 penny: String::new(),
                 commander: String::new(),
-                c1v1: String::new(),
                 duel: String::new(),
-                brawl: String::new(),
             },
         },
         card::Card {
@@ -356,9 +348,7 @@ fn print() {
                 vintage: String::new(),
                 penny: String::new(),
                 commander: String::new(),
-                c1v1: String::new(),
                 duel: String::new(),
-                brawl: String::new(),
             },
         },
         card::Card {
@@ -399,9 +389,7 @@ fn print() {
                 vintage: String::new(),
                 penny: String::new(),
                 commander: String::new(),
-                c1v1: String::new(),
                 duel: String::new(),
-                brawl: String::new(),
             },
         },
         card::Card {
@@ -442,9 +430,7 @@ fn print() {
                 vintage: String::new(),
                 penny: String::new(),
                 commander: String::new(),
-                c1v1: String::new(),
                 duel: String::new(),
-                brawl: String::new(),
             },
         },
         card::Card {
@@ -485,9 +471,7 @@ fn print() {
                 vintage: String::new(),
                 penny: String::new(),
                 commander: String::new(),
-                c1v1: String::new(),
                 duel: String::new(),
-                brawl: String::new(),
             },
         },
         card::Card {
@@ -528,9 +512,7 @@ fn print() {
                 vintage: String::new(),
                 penny: String::new(),
                 commander: String::new(),
-                c1v1: String::new(),
                 duel: String::new(),
-                brawl: String::new(),
             },
         },
         card::Card {
@@ -571,9 +553,7 @@ fn print() {
                 vintage: String::new(),
                 penny: String::new(),
                 commander: String::new(),
-                c1v1: String::new(),
                 duel: String::new(),
-                brawl: String::new(),
             },
         },
         card::Card {
@@ -614,9 +594,7 @@ fn print() {
                 vintage: String::new(),
                 penny: String::new(),
                 commander: String::new(),
-                c1v1: String::new(),
                 duel: String::new(),
-                brawl: String::new(),
             },
         },
         card::Card {
@@ -657,9 +635,7 @@ fn print() {
                 vintage: String::new(),
                 penny: String::new(),
                 commander: String::new(),
-                c1v1: String::new(),
                 duel: String::new(),
-                brawl: String::new(),
             },
         },
     ];
