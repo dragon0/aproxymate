@@ -1,15 +1,14 @@
 use printpdf::*;
 use std::fs::File;
 use std::io::BufWriter;
-use std::iter::FromIterator;
 
 use super::card;
 
-const white: Color = Color::Rgb(Rgb{r:1.0, g:1.0, b:1.0, icc_profile:None});
-const black: Color = Color::Rgb(Rgb{r:0.0, g:0.0, b:0.0, icc_profile:None});
+const WHITE: Color = Color::Rgb(Rgb{r:1.0, g:1.0, b:1.0, icc_profile:None});
+const BLACK: Color = Color::Rgb(Rgb{r:0.0, g:0.0, b:0.0, icc_profile:None});
 
-const text_margin: In = In(0.125);
-const line_width: usize = 50;
+const TEXT_MARGIN: In = In(0.125);
+const LINE_WIDTH: usize = 50;
 
 struct In(pub f64);
 
@@ -47,12 +46,12 @@ pub fn save_pdf(cards: Vec<card::Card>, not_found: Vec<String>) {
         let x = In(1.0);
         let y = In(8.0);
 
-        let mut current_layer = doc.get_page(page1).get_layer(layer1);
+        let current_layer = doc.get_page(page1).get_layer(layer1);
         current_layer.begin_text_section();
         current_layer.set_font(&font, 14);
         current_layer.set_line_height(14);
         current_layer.set_text_cursor(
-            In(x.0+text_margin.0).into(),
+            In(x.0+TEXT_MARGIN.0).into(),
             In(y.0).into());
 
         current_layer.write_text(
@@ -70,7 +69,7 @@ pub fn save_pdf(cards: Vec<card::Card>, not_found: Vec<String>) {
             current_layer.add_line_break();
         }
         current_layer.end_text_section();
-        let (page2, layer) = doc.add_page(In(11.0).into(), In(8.5).into(),"Page 2");
+        let (page2, _layer) = doc.add_page(In(11.0).into(), In(8.5).into(),"Page 2");
         page = page2;
     }
 
@@ -148,12 +147,12 @@ pub fn save_pdf(cards: Vec<card::Card>, not_found: Vec<String>) {
 
 fn draw_face(x: &In, y: &In, face: &card::CardFaceInfo, font: &IndirectFontRef, current_layer: &PdfLayerReference) {
     draw_border(&x, &y, current_layer);
-    current_layer.set_fill_color(black.clone());
+    current_layer.set_fill_color(BLACK.clone());
 
     current_layer.use_text(
         face.name.clone(),
         12,
-        In(x.0+text_margin.0).into(),
+        In(x.0+TEXT_MARGIN.0).into(),
         In(y.0+3.25).into(),
         &font);
 
@@ -161,14 +160,14 @@ fn draw_face(x: &In, y: &In, face: &card::CardFaceInfo, font: &IndirectFontRef, 
     current_layer.use_text(
         face.mana_cost.clone(),
         12,
-        In(x.0+text_margin.0+2.3-(mc_len * 0.1)).into(),
+        In(x.0+TEXT_MARGIN.0+2.3-(mc_len * 0.1)).into(),
         In(y.0+3.25).into(),
         &font);
 
     current_layer.use_text(
         face.type_line.clone(),
         10,
-        In(x.0+text_margin.0).into(),
+        In(x.0+TEXT_MARGIN.0).into(),
         In(y.0+3.0).into(),
         &font);
 
@@ -176,7 +175,7 @@ fn draw_face(x: &In, y: &In, face: &card::CardFaceInfo, font: &IndirectFontRef, 
     current_layer.set_font(&font, 8);
     current_layer.set_line_height(8);
     current_layer.set_text_cursor(
-        In(x.0+text_margin.0).into(),
+        In(x.0+TEXT_MARGIN.0).into(),
         In(y.0+2.75).into());
 
     let oracle_text = &face.oracle_text;
@@ -198,15 +197,15 @@ fn draw_face(x: &In, y: &In, face: &card::CardFaceInfo, font: &IndirectFontRef, 
     current_layer.use_text(
         power.clone(),
         10,
-        In(x.0+2.5-0.25-(text_margin.0*2.0)).into(),
-        In(y.0+text_margin.0).into(),
+        In(x.0+2.5-0.25-(TEXT_MARGIN.0*2.0)).into(),
+        In(y.0+TEXT_MARGIN.0).into(),
         &font);
 
     current_layer.use_text(
         toughness.clone(),
         10,
-        In(x.0+2.5-(text_margin.0*2.0)).into(),
-        In(y.0+text_margin.0).into(),
+        In(x.0+2.5-(TEXT_MARGIN.0*2.0)).into(),
+        In(y.0+TEXT_MARGIN.0).into(),
         &font);
 
         }
@@ -214,8 +213,8 @@ fn draw_face(x: &In, y: &In, face: &card::CardFaceInfo, font: &IndirectFontRef, 
     current_layer.use_text(
         loyalty.clone(),
         10,
-        In(x.0+2.5-(text_margin.0*2.0)).into(),
-        In(y.0+text_margin.0).into(),
+        In(x.0+2.5-(TEXT_MARGIN.0*2.0)).into(),
+        In(y.0+TEXT_MARGIN.0).into(),
         &font);
 
         }
@@ -225,7 +224,7 @@ fn draw_face(x: &In, y: &In, face: &card::CardFaceInfo, font: &IndirectFontRef, 
 
 fn draw_split(x: &In, y: &In, faces: &Vec<card::CardFaceInfo>, font: &IndirectFontRef, current_layer: &PdfLayerReference) {
     draw_border(&x, &y, current_layer);
-    current_layer.set_fill_color(black.clone());
+    current_layer.set_fill_color(BLACK.clone());
     let num_faces = faces.len() as f64;
 
     for (face_num, face) in faces.iter().enumerate() {
@@ -234,7 +233,7 @@ fn draw_split(x: &In, y: &In, faces: &Vec<card::CardFaceInfo>, font: &IndirectFo
         current_layer.use_text(
             face.name.clone(),
             12,
-            In(x.0+text_margin.0).into(),
+            In(x.0+TEXT_MARGIN.0).into(),
             In(y.0+face_pos).into(),
             &font);
 
@@ -242,14 +241,14 @@ fn draw_split(x: &In, y: &In, faces: &Vec<card::CardFaceInfo>, font: &IndirectFo
         current_layer.use_text(
             face.mana_cost.clone(),
             12,
-            In(x.0+text_margin.0+2.3-(mc_len * 0.1)).into(),
+            In(x.0+TEXT_MARGIN.0+2.3-(mc_len * 0.1)).into(),
             In(y.0+face_pos).into(),
             &font);
 
         current_layer.use_text(
             face.type_line.clone(),
             10,
-            In(x.0+text_margin.0).into(),
+            In(x.0+TEXT_MARGIN.0).into(),
             In(y.0+face_pos-0.25).into(),
             &font);
 
@@ -257,7 +256,7 @@ fn draw_split(x: &In, y: &In, faces: &Vec<card::CardFaceInfo>, font: &IndirectFo
         current_layer.set_font(&font, 8);
         current_layer.set_line_height(8);
         current_layer.set_text_cursor(
-            In(x.0+text_margin.0).into(),
+            In(x.0+TEXT_MARGIN.0).into(),
             In(y.0+face_pos-0.4).into());
 
         let oracle_text = &face.oracle_text;
@@ -274,21 +273,21 @@ fn draw_split(x: &In, y: &In, faces: &Vec<card::CardFaceInfo>, font: &IndirectFo
         current_layer.end_text_section();
 
         let ptl_pos = (3.25 - ((3.0/num_faces)*(face_num_f+1.0)))
-            + (text_margin.0*2.0);
+            + (TEXT_MARGIN.0*2.0);
         match &face.card_type {
             card::CardType::NonCreature => {}
             card::CardType::Creature {power, toughness} => {
                 current_layer.use_text(
                     power.clone(),
                     10,
-                    In(x.0+2.5-0.25-(text_margin.0*2.0)).into(),
+                    In(x.0+2.5-0.25-(TEXT_MARGIN.0*2.0)).into(),
                     In(y.0+ptl_pos).into(),
                     &font);
 
                 current_layer.use_text(
                     toughness.clone(),
                     10,
-                    In(x.0+2.5-(text_margin.0*2.0)).into(),
+                    In(x.0+2.5-(TEXT_MARGIN.0*2.0)).into(),
                     In(y.0+ptl_pos).into(),
                     &font);
 
@@ -297,7 +296,7 @@ fn draw_split(x: &In, y: &In, faces: &Vec<card::CardFaceInfo>, font: &IndirectFo
                 current_layer.use_text(
                     loyalty.clone(),
                     10,
-                    In(x.0+2.5-(text_margin.0*2.0)).into(),
+                    In(x.0+2.5-(TEXT_MARGIN.0*2.0)).into(),
                     In(y.0+ptl_pos).into(),
                     &font);
 
@@ -317,7 +316,7 @@ fn word_wrap(text: &String) -> Vec<String> {
     let mut line = String::new();
 
     for word in words {
-        if line.len() + word.len() + 1 < line_width {
+        if line.len() + word.len() + 1 < LINE_WIDTH {
             line.push(' ');
             line.push_str(word);
         }
@@ -351,8 +350,8 @@ fn draw_border(x: &In, y:&In, current_layer: &PdfLayerReference) {
         is_clipping_path: false,
     };
 
-    current_layer.set_fill_color(white.clone());
-    current_layer.set_outline_color(black.clone());
+    current_layer.set_fill_color(WHITE.clone());
+    current_layer.set_outline_color(BLACK.clone());
     current_layer.set_outline_thickness(5.0);
     current_layer.set_line_join_style(LineJoinStyle::Round);
 

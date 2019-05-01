@@ -38,8 +38,6 @@ fn process_cmd() {
 #[cfg(test)]
 mod test {
 
-    use std::env;
-    use std::fs;
     use std::process;
 
 
