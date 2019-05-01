@@ -17,7 +17,6 @@ fn main() {
 
 fn process_cmd() {
     let args: Vec<String> = env::args().collect();
-
     let filename = &args[1];
     let contents = fs::read_to_string(filename).expect("Error opening file");
     let lines: Vec<String> = contents.lines().map(|s|s.to_string()).collect();
@@ -26,7 +25,10 @@ fn process_cmd() {
 
     match res {
         Ok(cardresult) => {
-            page::save_pdf(cardresult.cards, cardresult.not_found);
+            page::save_pdf(cardresult.cards,
+                           cardresult.not_found,
+                           String::from("Cards"),
+                           String::from("cards.pdf"));
         }
         Err(err) => {
             println!("Runtime error: {}", err);
@@ -58,7 +60,10 @@ mod test {
 
         match res {
             Ok(cardresult) => {
-                page::save_pdf(cardresult.cards, cardresult.not_found);
+                page::save_pdf(cardresult.cards,
+                               cardresult.not_found,
+                               String::from("Fetch Results"),
+                               String::from("fetch_and_print.pdf"));
             }
             Err(err) => {
                 println!("Runtime error: {}", err);
@@ -654,6 +659,9 @@ mod test {
             ];
 
         let not_found = vec!["foobar".to_string(), "booasf".to_string()];
-        page::save_pdf(cards, not_found);
+        page::save_pdf(cards,
+                       not_found,
+                       String::from("Print Results"),
+                       String::from("print.pdf"));
     }
 }

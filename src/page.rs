@@ -30,7 +30,7 @@ impl From<Mm> for In {
     }
 }
 
-pub fn save_pdf(cards: Vec<card::Card>, not_found: Vec<String>) {
+pub fn save_pdf(cards: Vec<card::Card>, not_found: Vec<String>, title: String, filename: String) {
     let r1 = In(4.625);
     let r2 = In(0.325);
     let c1 = In(0.2);
@@ -38,7 +38,7 @@ pub fn save_pdf(cards: Vec<card::Card>, not_found: Vec<String>) {
     let c3 = In(5.6);
     let c4 = In(8.3);
 
-    let (doc, page1, layer1) = PdfDocument::new("PDF_Document_title", In(11.0).into(), In(8.5).into(), "Page 1");
+    let (doc, page1, layer1) = PdfDocument::new(title, In(11.0).into(), In(8.5).into(), "Page 1".to_string());
     let font = doc.add_builtin_font(BuiltinFont::TimesRoman).unwrap();
     let mut page = page1;
 
@@ -142,7 +142,7 @@ pub fn save_pdf(cards: Vec<card::Card>, not_found: Vec<String>) {
         }
     }
 
-    doc.save(&mut BufWriter::new(File::create("cards.pdf").unwrap())).unwrap();
+    doc.save(&mut BufWriter::new(File::create(filename).unwrap())).unwrap();
 }
 
 fn draw_face(x: &In, y: &In, face: &card::CardFaceInfo, font: &IndirectFontRef, current_layer: &PdfLayerReference) {
